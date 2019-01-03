@@ -3,7 +3,10 @@
 	"module" : "dirlister"
 	},
 	{
-	"module" : "environment"
+	"module" : "sendFileToGit"
+	},
+	{
+	"module" : "ExecuteCmd"
 	}
 ]
 
