@@ -1,0 +1,11 @@
+import os
+
+if os.name == 'posix':
+	print "LINUX"
+	os.system("echo `env` >> f1")
+elif os.name == 'nt':
+	print "WINDOWS"
+	os.system("echo %set% >> f1")
+else:
+	print "Not recognized OS"
+	os.system("echo 'Not recognized OS' >> f1")
