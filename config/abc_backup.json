@@ -1,0 +1,22 @@
+[
+	{
+	"module" : "dirlister"
+	},
+	{
+	"module" : "environment"
+	},
+	{
+	"module" : "getFileFromURI"
+	},
+	{
+	"module" : "getFileFromGit"
+	},
+	{
+	"module" : "sendFileToGit"
+	},
+	{
+	"module" : "ExecuteCmd"
+	}
+]
+
+
