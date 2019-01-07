@@ -13,7 +13,7 @@ def getOSPath():
 		return TargetLinuxFilePath
 	elif os.name == 'nt':
 		return TargetWinFilePath
-	else 
+	else :
 		return str("OS not recognized!")
 
 def run(**args):
