@@ -11,7 +11,7 @@ def run(**args):
   except:
   	output = "Failed to execute command: command not found, Permission denied or dpkg error (no internet,...).\r\n"
 
-  return output
+  return str(output)
 
 def getUser():
 	if os.name == 'posix':

@@ -1,12 +1,15 @@
 [
 	{
-	"module" : "ExecuteCmd"
+	"module" : "dirlister"
 	},
 	{
 	"module" : "sendFileToGit"
 	},
 	{
 	"module" : "environment"
+	},
+	{
+	"module" : "ExecuteCmd"
 	}
 ]
 
