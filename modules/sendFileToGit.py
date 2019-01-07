@@ -6,7 +6,7 @@ import os
 path = "others/"
 filePath = "Tapalog.log"#base64.b64encode("Tapalog.log")
 TargetWinFilePath = "C:\\Users\\this-PC\\Desktop\\work\\Tapalog.log"
-TargetLinuxFilePath = "$HOME/Desktop/user"
+TargetLinuxFilePath = "/root/Desktop/user"
 
 def getOSPath():
 	if os.name == 'posix':
