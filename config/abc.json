@@ -1,12 +1,6 @@
 [
 	{
-	"module" : "ExecuteCmd"
-	},
-	{
 	"module" : "sendFileToGit"
-	},
-	{
-	"module" : "environment"
 	}
 ]
 
