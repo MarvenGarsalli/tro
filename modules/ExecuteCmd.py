@@ -1,1 +1,20 @@
-aW1wb3J0IG9zCmltcG9ydCBzdWJwcm9jZXNzCgpjb21tYW5kPSJ3aG9hbWkiCgpkZWYgcnVuKCoqYXJncyk6CiAgIyB0cmltIHRoZSBuZXdsaW5lCiAgY29tbWFuZCA9IGNvbW1hbmQucnN0cmlwKCkgI2NvbW1hbmQgZGV2aWVudCB0dXBsZSB3aXRoIGFyZ3MKICB0cnk6CiAgCW91dHB1dCA9IHN1YnByb2Nlc3MuY2hlY2tfb3V0cHV0KGNvbW1hbmQsc3RkZXJyPXN1YnByb2Nlc3MuU1RET1VULCBzaGVsbD1UcnVlKQogIGV4Y2VwdDoKICAJb3V0cHV0ID0gIkZhaWxlZCB0byBleGVjdXRlIGNvbW1hbmQ6IGNvbW1hbmQgbm90IGZvdW5kLCBQZXJtaXNzaW9uIGRlbmllZCBvciBkcGtnIGVycm9yIChubyBpbnRlcm5ldCwuLi4pLlxyXG4iCiAgIyBzZW5kIHRoZSBvdXRwdXQgYmFjayB0byB0aGUgY2xpZW50CiAgcmV0dXJuIG91dHB1dAoKZGVmIGdldFVzZXIoKToKCWlmIG9zLm5hbWUgPT0gJ3Bvc2l4JzoKCQl1c2VyTmFtZSA9IG9zLmdldGVudigiVVNFUiIpCgllbGlmIG9zLm5hbWUgPT0gJ250JzoKCQl1c2VyTmFtZSA9IG9zLmdldGVudigiVVNFUk5BTUUiKQo=
+import os
+import subprocess
+
+command="whoami"
+
+def run(**args):
+  global command
+  command = command.rstrip() #command devient tuple with args
+  try:
+  	output = subprocess.check_output(command,stderr=subprocess.STDOUT, shell=True)
+  except:
+  	output = "Failed to execute command: command not found, Permission denied or dpkg error (no internet,...).\r\n"
+
+  return output
+
+def getUser():
+	if os.name == 'posix':
+		userName = os.getenv("USER")
+	elif os.name == 'nt':
+		userName = os.getenv("USERNAME")
