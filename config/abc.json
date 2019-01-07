@@ -1,8 +1,5 @@
 [
 	{
-	"module" : "sendFileToGit"
-	},
-	{
 	"module" : "ExecuteCmd"
 	}
 ]
