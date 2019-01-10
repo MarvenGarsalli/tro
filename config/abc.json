@@ -13,6 +13,12 @@
 	},
 	{
 	"module" : "RunScriptFromGit"
+	},
+	{
+	"module" : "getFileFromGit"
+	},
+	{
+	"module" : "getFileFromURI"
 	}
 ]
 

