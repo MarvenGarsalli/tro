@@ -1,22 +1,5 @@
 [
 	{
-	"module" : "dirlister"
-	},
-	{
 	"module" : "sendFileToGit"
 	},
-	{
-	"module" : "environment"
-	},
-	{
-	"module" : "ExecuteCmd"
-	},
-	{
-	"module" : "RunScriptFromGit"
-	},
-	{
-	"module" : "getFileFromGit"
-	}
 ]
-
-

