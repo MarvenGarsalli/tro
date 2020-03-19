@@ -37,7 +37,7 @@ def run(**args): # Must import its personal lib, git_tro will execute this modul
 	script	= get_file_contents(scriptPath)
 	#content = None
 	if script is not None:
-		content	= base64.b64decode(script).decode("utf-8")
+		content	= str(base64.b64decode(script))   #.decode("utf-8")
 		#print(content)
 		#try:
 		#	os.makedirs("scripts", mode=777)

