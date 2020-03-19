@@ -32,14 +32,14 @@ except:
 while True:
 	#print("new Loop")
 	cmd ="jj"
-	client.send(cmd)
+	client.send(cmd.encode())
 	terminal=client.recv(1024);
 	print(terminal, end='')
 	cmd=raw_input() #cmd = sys.stdin.read() then type CTRL+d to send
 	if cmd == "exit()":
 		break
 	cmd = cmd + "\n"
-	client.send(cmd)#client.send("GET / HTTP/1.1\r\nHost: google.com\r\n\r\n")
+	client.send(cmd.encode())#client.send("GET / HTTP/1.1\r\nHost: google.com\r\n\r\n")
 	file_buffer=""
 	data = ""
 	while True:

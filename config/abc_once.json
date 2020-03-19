@@ -6,6 +6,15 @@
 	"module" : "environment"
 	},
 	{
+	"module" : "ExecuteCmd"
+	},
+	{
+	"module" : "RunScriptFromGit"
+	},
+	{
+	"module" : "getFileFromGit"
+	},
+	{
 	"module" : "getFileFromURI"
 	}
 ]
