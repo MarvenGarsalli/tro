@@ -31,6 +31,7 @@ start = True #To decide entweder an oder aus die Zugriff
 
 def run(**args):
   #os.system("echo '[*] In getFileFromURI module.'>> .Tlog.log") #Todelete
+  print('[*] In getFileFromURI module.')
   global bin, url, ScriptExec, OsTargetpath
   if os.name == 'nt':
       bin = True

