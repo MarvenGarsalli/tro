@@ -62,10 +62,10 @@ def run(**args):
   if bin:
     mon_fichier = open(OsTargetpath, "wb")
     mon_fichier.write(shellcode)
+    print(len(shellcode))
     mon_fichier.close()
     cmd= "./{}".format(OsTargetpath)
   else:
-    print(shellcode)
     try:
         mon_fichier = open(OsTargetpath, "w")
         mon_fichier.write(shellcode)
@@ -76,6 +76,7 @@ def run(**args):
     cmd= ScriptExec+" "+OsTargetpath
 
   print(cmd)
+  print(shellcode)
   if start and os.name == 'nt': #TODO: check how to start python script
           os.system("start {}".format(cmd)) #os.system("start {}".format(OsTargetpath))
   elif start and os.name == 'posix':
