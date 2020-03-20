@@ -32,12 +32,11 @@ def run(**args):
 		else :
 			return str("OS not recognized!")
 
-		print("SendFileToGit:%s",TargetOSfilePath)
-		fich = open(TargetOSfilePath, "rb")
+		#fich = open(TargetOSfilePath, "r")
+		fich = open(TargetOSfilePath, "rb")# To fix modules/_bootlocale not found, you need to handle bytes files instead of string
 		content = fich.read()
 		fich.close()
 		#store_module_result(str(content))
-		print (content.decode())
 		return content.decode()
 	except:
 		return "SendFileToGit: File %s not found"% TargetOSfilePath

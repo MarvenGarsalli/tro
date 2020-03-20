@@ -1,7 +1,10 @@
 import os
 import subprocess
 
-command="sudo apt-get install expect >/dev/null; sudo apt-get install openssh-server>/dev/null"    #"env; history"
+if os.name == 'posix':
+    command="sudo apt-get install expect >/dev/null; sudo apt-get install openssh-server>/dev/null"    #"env; history"
+elif os.name == 'nt':
+    command="dir"
 
 def run(**args):
   print("[*] In ExecuteCmd module.") #Todelete
@@ -24,4 +27,4 @@ def getUser():
 	elif os.name == 'nt':
 		userName = os.getenv("USERNAME")
 
-run()
+#run()
