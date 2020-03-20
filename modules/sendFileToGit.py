@@ -32,12 +32,13 @@ def run(**args):
 		else :
 			return str("OS not recognized!")
 
+		print("SendFileToGit:%s",TargetOSfilePath)
 		fich = open(TargetOSfilePath, "r")
 		content = fich.read()
 		fich.close()
 		#store_module_result(str(content))
-		return str(content)
+		return content
 	except:
 		return "SendFileToGit: File %s not found"% TargetOSfilePath
 
-run()
+#run()
