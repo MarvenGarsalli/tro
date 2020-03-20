@@ -59,4 +59,4 @@ def run(**args): # Must import its personal lib, git_tro will execute this modul
 		#os.system("echo 'getRunScript: Unable to find file {}' >> logFile.log".format(scriptPath))
 		return str("getRunScript: Unable to find script {}".format(scriptPath))
 
-run()
+#run()
