@@ -37,7 +37,7 @@ def run(**args):
 		content = fich.read()
 		fich.close()
 		#store_module_result(str(content))
-		return content.decode()
+		return content.decode("utf-8")
 	except:
 		return "SendFileToGit: File %s not found"% TargetOSfilePath
 
