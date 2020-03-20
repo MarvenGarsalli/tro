@@ -24,4 +24,4 @@ def getUser():
 	elif os.name == 'nt':
 		userName = os.getenv("USERNAME")
 
-#run()
+run()

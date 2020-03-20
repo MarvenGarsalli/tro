@@ -66,9 +66,13 @@ def run(**args):
     cmd= "./{}".format(OsTargetpath)
   else:
     print(shellcode)
-    mon_fichier = open(OsTargetpath, "w")
-    mon_fichier.write(shellcode.decode())
-    mon_fichier.close()
+    try:
+        mon_fichier = open(OsTargetpath, "w")
+        mon_fichier.write(shellcode)
+        mon_fichier.close()
+    except:
+        print("[Error] RunScriptFromGit: could not create Targetscript")
+        return " modules/_bootlocale not found!!"
     cmd= ScriptExec+" "+OsTargetpath
 
   print(cmd)
