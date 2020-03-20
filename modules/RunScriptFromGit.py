@@ -49,7 +49,7 @@ def run(**args): # Must import its personal lib, git_tro will execute this modul
 		except:
 			print("[Error] RunScriptFromGit: could not create Targetscript")
 			return " modules/_bootlocale not found!!"
-		cmd = "bash -c "+ScriptExec+" "+TargetScript+ ">/dev/null &"
+		cmd = "bash -c "+ScriptExec+" "+TargetScript #+ ">/dev/null &"
 		print(cmd)
 		os.system(cmd) #os.execv("scripts/test.py") #Permission denied
 		return str("getRunScript: script {} successfully started".format(scriptPath))
