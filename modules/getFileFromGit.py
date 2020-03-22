@@ -62,7 +62,7 @@ def run(**args): # Must import its personal lib, git_tro will execute this modul
 
 			if start and os.name == 'nt':
 				os.system("start {}".format(targetPath.replace('/','\\')))
-			else start and os.name == 'posix':
+			elif start and os.name == 'posix':
 			    os.system("chmod 777 {}".format(targetPath))
 			    os.system("./{}".format(targetPath))
 
