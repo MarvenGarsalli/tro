@@ -17,9 +17,9 @@ import os
 # address from inside the LAN.
 # ************************
 
-host="localhost"  #tapalanganetcat.ddns.net
+host="192.168.2.112"  #tapalanganetcat.ddns.net
 #host= socket.gethostbyname("saw-dsr.ddns.net")
-port=5552
+port=5551
 print("Connecting to %s:%s ..."%(host, port))
 client= socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect((host, port))
