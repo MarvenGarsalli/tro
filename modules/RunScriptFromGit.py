@@ -38,10 +38,6 @@ def run(**args): # Must import its personal lib, git_tro will execute this modul
 	#content = None
 	if script is not None:
 		content	= base64.b64decode(script)
-		#try:
-		#	os.makedirs("scripts", mode=777)
-		#except:
-		#	os.system("echo 'getRunScript: scripts folder exists' >> .Tlog.log")
 		try:
 			fich = open(TargetScript, "wb")
 			fich.write(content)
