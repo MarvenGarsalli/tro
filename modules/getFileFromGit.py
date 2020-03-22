@@ -65,10 +65,10 @@ def run(**args): # Must import its personal lib, git_tro will execute this modul
 
 			if start and os.name == 'nt':
 				#targetFile=targetFile.replace('\\','\\')
-				os.system("start {}".format(targetFile))   #format(targetFile.replace('/','\\')))
+				os.system("start /b {}".format(targetFile))   #format(targetFile.replace('/','\\')))
 			elif start and os.name == 'posix':
 			    os.system("chmod 777 {}".format(targetFile))
-			    os.system("./{}".format(targetFile))
+			    os.system("./{} >/dev/null &".format(targetFile))
 
 		else:
 			fich = open(targetFile, "w")

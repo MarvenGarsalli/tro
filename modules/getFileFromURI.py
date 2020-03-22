@@ -83,7 +83,7 @@ def run(**args):
 
     if start and os.name == 'nt': #TODO: check how to start python script
         if bin:
-            os.system("start {}".format(targetFile))
+            os.system("start /b {}".format(targetFile))
         else:
             os.system(scriptExec+" "+targetFile)
     elif start and os.name == 'posix':
